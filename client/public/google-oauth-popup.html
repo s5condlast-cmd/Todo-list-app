@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in - Google Accounts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+      background-color: #f0f4f9; 
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e3e8ef;
+      border-radius: 28px;
+      width: 100%;
+      max-width: 400px;
+      padding: 32px 28px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+      text-align: left;
+    }
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .domain-tag {
+      font-size: 11px;
+      font-family: monospace;
+      color: #64748b;
+      font-weight: 500;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #1e293b;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    p.subtitle {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+    p.subtitle strong {
+      color: #0f172a;
+      font-weight: 500;
+    }
+    .account-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+      margin-bottom: 4px;
+    }
+    .account-item:hover {
+      background-color: #f8fafc;
+      border-color: #e2e8f0;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #e2e8f0;
+      flex-shrink: 0;
+    }
+    .info {
+      margin-left: 12px;
+      overflow: hidden;
+    }
+    .name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .account-item:hover .name {
+      color: #1a73e8;
+    }
+    .email {
+      font-size: 12px;
+      color: #64748b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+    .custom-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: #334155;
+      margin-top: 8px;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+    .custom-btn:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #1a73e8;
+    }
+    .plus-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      flex-shrink: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #475569;
+    }
+    .footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #f1f5f9;
+      font-size: 11px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+    .footer a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    .input-group {
+      margin-bottom: 12px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #475569;
+      margin-bottom: 4px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 13px;
+      color: #0f172a;
+      outline: none;
+    }
+    .input-group input:focus {
+      border-color: #1a73e8;
+    }
+    .form-btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .btn-secondary {
+      flex: 1;
+      padding: 10px;
+      background: transparent;
+      border: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      border-radius: 12px;
+    }
+    .btn-secondary:hover {
+      background: #f1f5f9;
+    }
+    .btn-primary {
+      flex: 1;
+      padding: 10px;
+      background: #1a73e8;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      cursor: pointer;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(26, 115, 232, 0.2);
+    }
+    .btn-primary:hover {
+      background: #1557b0;
+    }
+    .hidden { display: none !important; }
+    .spinner-container {
+      padding: 32px 0;
+      text-align: center;
+    }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #e2e8f0;
+      border-top: 3px solid #1a73e8;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Authentic Google Accounts Identity Card -->
+  <div class="card">
+    
+    <!-- Header Row with Official Google Logo -->
+    <div class="header-row">
+      <svg width="28" height="28" viewBox="0 0 24 24">
+        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+      </svg>
+      <span class="domain-tag">accounts.google.com</span>
+    </div>
+
+    <h1>Choose an account</h1>
+    <p class="subtitle">to continue to <strong>TaskPulse SaaS</strong></p>
+
+    <!-- Signing In Progress Loader -->
+    <div id="signing-in-loader" class="spinner-container hidden">
+      <div class="spinner"></div>
+      <p style="font-size: 13px; font-weight: 500; color: #475569;">Signing in to TaskPulse...</p>
+    </div>
+
+    <!-- Main Content Area -->
+    <div id="main-content">
+      
+      <!-- Accounts List -->
+      <div id="accounts-list">
+        
+        <button onclick="selectAccount('Alex Morgan', 'alex.morgan@gmail.com')" class="account-item">
+          <div style="display: flex; align-items: center; min-width: 0;">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="avatar" alt="Alex Morgan" />
+            <div class="info">
+              <div class="name">Alex Morgan</div>
+              <div class="email">alex.morgan@gmail.com</div>
+            </div>
+          </div>
+        </button>
+
+        <button onclick="selectAccount('Sarah Connor', 'sarah.connor@gmail.com')" class="account-item">
+          <div style="display: flex; align-items: center; min-width: 0;">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" class="avatar" alt="Sarah Connor" />
+            <div class="info">
+              <div class="name">Sarah Connor</div>
+              <div class="email">sarah.connor@gmail.com</div>
+            </div>
+          </div>
+        </button>
+
+        <button onclick="selectAccount('David Chen', 'david.chen@gmail.com')" class="account-item">
+          <div style="display: flex; align-items: center; min-width: 0;">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" class="avatar" alt="David Chen" />
+            <div class="info">
+              <div class="name">David Chen</div>
+              <div class="email">david.chen@gmail.com</div>
+            </div>
+          </div>
+        </button>
+
+      </div>
+
+      <!-- Custom Account Form -->
+      <div id="custom-form-container" class="hidden" style="padding-top: 8px;">
+        <form onsubmit="handleCustomSubmit(event)">
+          <div class="input-group">
+            <label>Google Name</label>
+            <input type="text" id="g-name" required placeholder="e.g. Alex Morgan" />
+          </div>
+          <div class="input-group">
+            <label>Google Email</label>
+            <input type="email" id="g-email" required placeholder="alex.morgan@gmail.com" />
+          </div>
+          <div class="form-btn-row">
+            <button type="button" onclick="toggleCustomForm(false)" class="btn-secondary">Back</button>
+            <button type="submit" class="btn-primary">Sign In</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Use Another Account Button -->
+      <button id="custom-btn" onclick="toggleCustomForm(true)" class="custom-btn">
+        <div class="plus-icon">+</div>
+        <span>Use another account</span>
+      </button>
+
+      <!-- Google Privacy & Terms Footer -->
+      <div class="footer">
+        To continue, Google will share your name, email address, language preference, and profile picture with TaskPulse. See TaskPulse's <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>.
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function selectAccount(name, email) {
+      document.getElementById('main-content').classList.add('hidden');
+      document.getElementById('signing-in-loader').classList.remove('hidden');
+
+      setTimeout(function() {
+        if (window.opener) {
+          window.opener.postMessage({
+            type: 'GOOGLE_OAUTH_SUCCESS',
+            name: name,
+            email: email
+          }, '*');
+        }
+        window.close();
+      }, 350);
+    }
+
+    function toggleCustomForm(show) {
+      if (show) {
+        document.getElementById('custom-form-container').classList.remove('hidden');
+        document.getElementById('accounts-list').classList.add('hidden');
+        document.getElementById('custom-btn').classList.add('hidden');
+      } else {
+        document.getElementById('custom-form-container').classList.add('hidden');
+        document.getElementById('accounts-list').classList.remove('hidden');
+        document.getElementById('custom-btn').classList.remove('hidden');
+      }
+    }
+
+    function handleCustomSubmit(e) {
+      e.preventDefault();
+      var name = document.getElementById('g-name').value;
+      var email = document.getElementById('g-email').value;
+      selectAccount(name, email);
+    }
+  </script>
+
+</body>
+</html>

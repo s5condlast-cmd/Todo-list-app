@@ -1,0 +1,27 @@
+{
+  "name": "taskpulse-saas",
+  "version": "1.0.0",
+  "description": "TaskPulse SaaS — Modern Archival Task Focus Application",
+  "scripts": {
+    "dev": "concurrently -k \"npm run server\" \"npm run client\"",
+    "server": "cd server && node src/index.js",
+    "client": "cd client && npm run dev",
+    "start": "cd server && node src/index.js",
+    "build": "cd client && npm run build",
+    "postinstall": "cd server && npm install && cd ../client && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "taskpulse",
+    "todo-app",
+    "fullstack",
+    "sqlite",
+    "express",
+    "react",
+    "vite"
+  ],
+  "author": "Google Antigravity Team",
+  "license": "MIT"
+}
