@@ -2,19 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function ImageSlider() {
+  const base = import.meta.env.BASE_URL;
   const slides = [
     {
-      url: '/todo_hero.jpg',
+      url: `${base}todo_hero.jpg`,
       title: 'Workspace Inbox',
       subtitle: 'Zero-friction task capture with linear priority tags & due dates'
     },
     {
-      url: '/todo_kanban.jpg',
+      url: `${base}todo_kanban.jpg`,
       title: 'Kanban Focus Boards',
       subtitle: 'Organize focus areas into To Do, Urgent Focus, and Completed columns'
     },
     {
-      url: '/todo_analytics.jpg',
+      url: `${base}todo_analytics.jpg`,
       title: 'Productivity Metrics',
       subtitle: 'Real-time calculation of completion rate, overdue tasks, and workload stats'
     }
